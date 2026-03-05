@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cart")
@@ -40,9 +41,20 @@ public class CartController {
     }
 
     @PostMapping("/update")
-    public String updateCart(@RequestParam("productId") Long productId,
-                             @RequestParam("quantity") int quantity) {
-        cartService.updateQuantity(productId, quantity);
+    public String updateCart(@RequestParam Map<String,String> params) {
+
+        params.forEach((key,value) -> {
+
+            if(key.startsWith("quantity_")){
+
+                Long productId = Long.parseLong(key.replace("quantity_",""));
+                int quantity = Integer.parseInt(value);
+
+                cartService.updateQuantity(productId, quantity);
+            }
+
+        });
+
         return "redirect:/cart";
     }
 

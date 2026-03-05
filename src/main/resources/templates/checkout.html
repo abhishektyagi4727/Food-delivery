@@ -40,7 +40,7 @@
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span>Order Summary</span>
-                    <span class="badge bg-primary rounded-pill" th:text="${cartItems.size()}">0</span>
+                    <span class="badge bg-primary rounded-pill" th:text="${cartItems != null ? cartItems.size() : 0}">0</span>
                 </h4>
                 <ul class="list-group mb-3">
                     <li th:each="item : ${cartItems}" class="list-group-item d-flex justify-content-between lh-sm">
@@ -65,22 +65,22 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="name" th:value="${user.name}" readonly>
+                            <input type="text" class="form-control" id="name" th:value="${user != null ? user.name : ''}" readonly>
                         </div>
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" th:value="${user.email}" readonly>
+                            <input type="email" class="form-control" id="email" th:value="${user != null ? user.email : ''}" readonly>
                         </div>
 
                         <div class="col-12">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="phone" th:value="${user.phone}" readonly>
+                            <input type="tel" class="form-control" id="phone" th:value="${user != null ? user.phone : ''}" readonly>
                         </div>
 
                         <div class="col-12">
                             <label for="delivery_address" class="form-label">Delivery Address</label>
-                            <textarea class="form-control" id="delivery_address" name="delivery_address" rows="3" required>[[${user.address}]]</textarea>
+                            <textarea class="form-control" id="delivery_address" name="delivery_address" rows="3" required th:text="${user != null ? user.address : ''}"></textarea>
                             <div class="invalid-feedback">
                                 Please enter your delivery address.
                             </div>
